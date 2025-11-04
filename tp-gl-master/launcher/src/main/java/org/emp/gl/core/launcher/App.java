@@ -2,9 +2,11 @@ package org.emp.gl.core.launcher;
 
 import org.emp.gl.clients.CompteARebours;
 import org.emp.gl.clients.Horloge;
+import org.emp.gl.clients.HorlogeGUI;
 import org.emp.gl.timer.service.TimerService;
 import org.emp.gl.time.service.impl.DummyTimeServiceImpl;
 
+import javax.swing.*;
 import java.util.Random;
 
 /**
@@ -30,7 +32,7 @@ public class App {
         System.out.println("\n=== Trois horloges actives ===\n");
         */
 
-
+        /*
         Random random = new Random();
 
         // Créer 10 comptes à rebours avec valeurs entre 10 et 20
@@ -46,6 +48,13 @@ public class App {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        */
+
+        SwingUtilities.invokeLater(() -> {
+            HorlogeGUI gui = new HorlogeGUI(timerService);
+            gui.setVisible(true);
+        });
+
     }
 
     public static void clearScreen() {
