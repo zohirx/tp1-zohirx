@@ -1,18 +1,21 @@
-package org.emp.gl.clients ; 
+package org.emp.gl.clients;
 
-import org.emp.gl.timer.service.TimerService ; 
+import org.emp.gl.timer.service.TimerService;
+import org.emp.gl.timer.service.TimerChangeListener;
 
-
-public class Horloge {
+public class Horloge implements TimerChangeListener {
 
     String name; 
     TimerService timerService ; 
 
 
-    public Horloge (String name) {
-        this.name = name ; 
+    public Horloge (String name, TimerService timerService) {
+        this.name = name ;
+        this.timerService = timerService;
 
-        System.out.println ("Horloge "+name+" initialized!") ;
+        this.timerService.addTimeChangeListener(this);
+
+        System.out.println("Horloge " + name + " initialized!");
     }
 
     public void afficherHeure () {
@@ -21,6 +24,14 @@ public class Horloge {
                                 timerService.getHeures() +":"+
                                 timerService.getMinutes()+":"+
                                 timerService.getSecondes()) ;
+    }
+
+    @Override
+    public void propertyChange(String prop, Object oldValue, Object newValue) {
+        // Afficher l'heure uniquement quand les secondes changent
+        if (SECONDE_PROP.equals(prop)) {
+            afficherHeure();
+        }
     }
 
 }

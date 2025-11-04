@@ -1,6 +1,8 @@
 package org.emp.gl.core.launcher;
 
-import org.emp.gl.clients.Horloge ;
+import org.emp.gl.clients.Horloge;
+import org.emp.gl.timer.service.TimerService;
+import org.emp.gl.time.service.impl.DummyTimeServiceImpl;
 
 /**
  * Hello world!
@@ -14,7 +16,19 @@ public class App {
     }
 
     private static void testDuTimeService() {
-        Horloge horloge = new Horloge("Num 1") ;
+
+        TimerService timerService = new DummyTimeServiceImpl();
+
+        Horloge horloge1 = new Horloge("Horloge 1", timerService);
+        Horloge horloge2 = new Horloge("Horloge 2", timerService);
+        Horloge horloge3 = new Horloge("Horloge 3", timerService);
+
+        System.out.println("\n=== Trois horloges actives ===\n");
+        try {
+            Thread.sleep(Long.MAX_VALUE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void clearScreen() {
